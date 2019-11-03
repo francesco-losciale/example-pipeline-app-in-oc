@@ -1,0 +1,636 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.v1.cni.cncf.io/networks-status: ""
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu, memory request for
+        container sti-build; cpu, memory limit for container sti-build; cpu, memory
+        request for init container git-clone; cpu, memory limit for init container
+        git-clone; cpu, memory request for init container manage-dockerfile; cpu,
+        memory limit for init container manage-dockerfile'
+      openshift.io/build.name: example-pipeline-app-in-oc-1
+      openshift.io/scc: privileged
+    creationTimestamp: "2019-11-03T15:54:49Z"
+    labels:
+      openshift.io/build.name: example-pipeline-app-in-oc-1
+    name: example-pipeline-app-in-oc-1-build
+    namespace: example-pipeline-app-in-oc
+    ownerReferences:
+    - apiVersion: build.openshift.io/v1
+      controller: true
+      kind: Build
+      name: example-pipeline-app-in-oc-1
+      uid: 43e21ef1-fe52-11e9-9c82-0a580a810072
+    resourceVersion: "1511205"
+    selfLink: /api/v1/namespaces/example-pipeline-app-in-oc/pods/example-pipeline-app-in-oc-1-build
+    uid: 442cdd93-fe52-11e9-b3da-06ef430e38e6
+  spec:
+    containers:
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-sti-build
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"example-pipeline-app-in-oc-1","namespace":"example-pipeline-app-in-oc","selfLink":"/apis/build.openshift.io/v1/namespaces/example-pipeline-app-in-oc/builds/example-pipeline-app-in-oc-1","uid":"43e21ef1-fe52-11e9-9c82-0a580a810072","resourceVersion":"1510664","creationTimestamp":"2019-11-03T15:54:49Z","labels":{"app":"example-pipeline-app-in-oc","buildconfig":"example-pipeline-app-in-oc","openshift.io/build-config.name":"example-pipeline-app-in-oc","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"example-pipeline-app-in-oc","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"example-pipeline-app-in-oc","uid":"434e932e-fe52-11e9-aef9-0a580a800073","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/francesco-losciale/example-pipeline-app-in-oc"}},"strategy":{"type":"Source","sourceStrategy":{"from":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89"},"pullSecret":{"name":"builder-dockercfg-xhp66"}}},"output":{"to":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc:latest"},"pushSecret":{"name":"builder-dockercfg-xhp66"}},"resources":{},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Image change","imageChangeBuild":{"imageID":"image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89","fromRef":{"kind":"ImageStreamTag","namespace":"openshift","name":"java:11"}}}]},"status":{"phase":"New","outputDockerImageReference":"image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc:latest","config":{"kind":"BuildConfig","namespace":"example-pipeline-app-in-oc","name":"example-pipeline-app-in-oc"},"output":{}}}
+      - name: LANG
+        value: en_US.utf8
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      - name: SOURCE_URI
+        value: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      - name: ALLOWED_UIDS
+        value: 1-
+      - name: DROP_CAPS
+        value: KILL,MKNOD,SETGID,SETUID
+      - name: PUSH_DOCKERCFG_PATH
+        value: /var/run/secrets/openshift.io/push
+      - name: PULL_DOCKERCFG_PATH
+        value: /var/run/secrets/openshift.io/pull
+      - name: BUILD_REGISTRIES_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.conf
+      - name: BUILD_REGISTRIES_DIR_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.d
+      - name: BUILD_SIGNATURE_POLICY_PATH
+        value: /var/run/configs/openshift.io/build-system/policy.json
+      - name: BUILD_STORAGE_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/storage.conf
+      - name: BUILD_STORAGE_DRIVER
+        value: overlay
+      - name: BUILD_ISOLATION
+        value: chroot
+      - name: BUILD_BLOBCACHE_DIR
+        value: /var/cache/blobs
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      imagePullPolicy: IfNotPresent
+      name: sti-build
+      resources:
+        limits:
+          cpu: "1"
+          memory: 512Mi
+        requests:
+          cpu: 20m
+          memory: 256Mi
+      securityContext:
+        privileged: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/lib/containers/cache
+        name: buildcachedir
+      - mountPath: /var/run/secrets/openshift.io/push
+        name: builder-dockercfg-xhp66-push
+        readOnly: true
+      - mountPath: /var/run/secrets/openshift.io/pull
+        name: builder-dockercfg-xhp66-pull
+        readOnly: true
+      - mountPath: /var/run/configs/openshift.io/build-system
+        name: build-system-configs
+        readOnly: true
+      - mountPath: /var/run/configs/openshift.io/certs
+        name: build-ca-bundles
+      - mountPath: /var/lib/containers/storage
+        name: container-storage-root
+      - mountPath: /var/cache/blobs
+        name: build-blob-cache
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-8gwdj
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: builder-dockercfg-xhp66
+    initContainers:
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-git-clone
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"example-pipeline-app-in-oc-1","namespace":"example-pipeline-app-in-oc","selfLink":"/apis/build.openshift.io/v1/namespaces/example-pipeline-app-in-oc/builds/example-pipeline-app-in-oc-1","uid":"43e21ef1-fe52-11e9-9c82-0a580a810072","resourceVersion":"1510664","creationTimestamp":"2019-11-03T15:54:49Z","labels":{"app":"example-pipeline-app-in-oc","buildconfig":"example-pipeline-app-in-oc","openshift.io/build-config.name":"example-pipeline-app-in-oc","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"example-pipeline-app-in-oc","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"example-pipeline-app-in-oc","uid":"434e932e-fe52-11e9-aef9-0a580a800073","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/francesco-losciale/example-pipeline-app-in-oc"}},"strategy":{"type":"Source","sourceStrategy":{"from":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89"},"pullSecret":{"name":"builder-dockercfg-xhp66"}}},"output":{"to":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc:latest"},"pushSecret":{"name":"builder-dockercfg-xhp66"}},"resources":{},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Image change","imageChangeBuild":{"imageID":"image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89","fromRef":{"kind":"ImageStreamTag","namespace":"openshift","name":"java:11"}}}]},"status":{"phase":"New","outputDockerImageReference":"image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc:latest","config":{"kind":"BuildConfig","namespace":"example-pipeline-app-in-oc","name":"example-pipeline-app-in-oc"},"output":{}}}
+      - name: LANG
+        value: en_US.utf8
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      - name: SOURCE_URI
+        value: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      - name: ALLOWED_UIDS
+        value: 1-
+      - name: DROP_CAPS
+        value: KILL,MKNOD,SETGID,SETUID
+      - name: BUILD_REGISTRIES_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.conf
+      - name: BUILD_REGISTRIES_DIR_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.d
+      - name: BUILD_SIGNATURE_POLICY_PATH
+        value: /var/run/configs/openshift.io/build-system/policy.json
+      - name: BUILD_STORAGE_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/storage.conf
+      - name: BUILD_BLOBCACHE_DIR
+        value: /var/cache/blobs
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      imagePullPolicy: IfNotPresent
+      name: git-clone
+      resources:
+        limits:
+          cpu: "1"
+          memory: 512Mi
+        requests:
+          cpu: 20m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/run/configs/openshift.io/build-system
+        name: build-system-configs
+        readOnly: true
+      - mountPath: /var/cache/blobs
+        name: build-blob-cache
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-8gwdj
+        readOnly: true
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-manage-dockerfile
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"example-pipeline-app-in-oc-1","namespace":"example-pipeline-app-in-oc","selfLink":"/apis/build.openshift.io/v1/namespaces/example-pipeline-app-in-oc/builds/example-pipeline-app-in-oc-1","uid":"43e21ef1-fe52-11e9-9c82-0a580a810072","resourceVersion":"1510664","creationTimestamp":"2019-11-03T15:54:49Z","labels":{"app":"example-pipeline-app-in-oc","buildconfig":"example-pipeline-app-in-oc","openshift.io/build-config.name":"example-pipeline-app-in-oc","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"example-pipeline-app-in-oc","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"example-pipeline-app-in-oc","uid":"434e932e-fe52-11e9-aef9-0a580a800073","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/francesco-losciale/example-pipeline-app-in-oc"}},"strategy":{"type":"Source","sourceStrategy":{"from":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89"},"pullSecret":{"name":"builder-dockercfg-xhp66"}}},"output":{"to":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc:latest"},"pushSecret":{"name":"builder-dockercfg-xhp66"}},"resources":{},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Image change","imageChangeBuild":{"imageID":"image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89","fromRef":{"kind":"ImageStreamTag","namespace":"openshift","name":"java:11"}}}]},"status":{"phase":"New","outputDockerImageReference":"image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc:latest","config":{"kind":"BuildConfig","namespace":"example-pipeline-app-in-oc","name":"example-pipeline-app-in-oc"},"output":{}}}
+      - name: LANG
+        value: en_US.utf8
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      - name: SOURCE_URI
+        value: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      - name: ALLOWED_UIDS
+        value: 1-
+      - name: DROP_CAPS
+        value: KILL,MKNOD,SETGID,SETUID
+      - name: BUILD_REGISTRIES_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.conf
+      - name: BUILD_REGISTRIES_DIR_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.d
+      - name: BUILD_SIGNATURE_POLICY_PATH
+        value: /var/run/configs/openshift.io/build-system/policy.json
+      - name: BUILD_STORAGE_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/storage.conf
+      - name: BUILD_BLOBCACHE_DIR
+        value: /var/cache/blobs
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      imagePullPolicy: IfNotPresent
+      name: manage-dockerfile
+      resources:
+        limits:
+          cpu: "1"
+          memory: 512Mi
+        requests:
+          cpu: 20m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/run/configs/openshift.io/build-system
+        name: build-system-configs
+        readOnly: true
+      - mountPath: /var/cache/blobs
+        name: build-blob-cache
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-8gwdj
+        readOnly: true
+    nodeName: ip-10-0-175-2.us-east-2.compute.internal
+    priority: 0
+    restartPolicy: Never
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: builder
+    serviceAccountName: builder
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - hostPath:
+        path: /var/lib/containers/cache
+        type: ""
+      name: buildcachedir
+    - emptyDir: {}
+      name: buildworkdir
+    - name: builder-dockercfg-xhp66-push
+      secret:
+        defaultMode: 384
+        secretName: builder-dockercfg-xhp66
+    - name: builder-dockercfg-xhp66-pull
+      secret:
+        defaultMode: 384
+        secretName: builder-dockercfg-xhp66
+    - configMap:
+        defaultMode: 420
+        name: example-pipeline-app-in-oc-1-sys-config
+      name: build-system-configs
+    - configMap:
+        defaultMode: 420
+        items:
+        - key: service-ca.crt
+          path: certs.d/image-registry.openshift-image-registry.svc:5000/ca.crt
+        name: example-pipeline-app-in-oc-1-ca
+      name: build-ca-bundles
+    - emptyDir: {}
+      name: container-storage-root
+    - emptyDir: {}
+      name: build-blob-cache
+    - name: builder-token-8gwdj
+      secret:
+        defaultMode: 420
+        secretName: builder-token-8gwdj
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2019-11-03T15:55:05Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2019-11-03T15:55:40Z"
+      message: 'containers with unready status: [sti-build]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2019-11-03T15:55:40Z"
+      message: 'containers with unready status: [sti-build]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2019-11-03T15:54:49Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://e5304941eb4702a22adb2e7838f749b96157533e2350f32b6dd72dde49de44ce
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      imageID: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      lastState: {}
+      name: sti-build
+      ready: false
+      restartCount: 0
+      state:
+        terminated:
+          containerID: cri-o://e5304941eb4702a22adb2e7838f749b96157533e2350f32b6dd72dde49de44ce
+          exitCode: 137
+          finishedAt: "2019-11-03T15:55:39Z"
+          message: |
+            Caching blobs under "/var/cache/blobs".
+            Getting image source signatures
+            Copying blob sha256:4c98734f24339b059854b6f7ad77928ffb6b84756ecd4eeec4a15870b082d906
+            Copying blob sha256:17942523bc4bb2db6eb9f7519db38bbb70e47356d3f0ae0f15b967c0628234c6
+            Copying blob sha256:5515a4a345a77c65bee0d8320d1c020cbdb3053141e7579d7d01f0e0792ffeb8
+            Copying config sha256:adc2c894de47848ad002fe063bb07b3953028b0bf7a7ee00a3f79b7b5ba17fdd
+            Writing manifest to image destination
+            Storing signatures
+          reason: OOMKilled
+          startedAt: "2019-11-03T15:55:05Z"
+    hostIP: 10.0.175.2
+    initContainerStatuses:
+    - containerID: cri-o://2a55bb42194662c05434c4ab723523d389353555d04bf559ebd0f3af51eeecc2
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      imageID: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      lastState: {}
+      name: git-clone
+      ready: true
+      restartCount: 0
+      state:
+        terminated:
+          containerID: cri-o://2a55bb42194662c05434c4ab723523d389353555d04bf559ebd0f3af51eeecc2
+          exitCode: 0
+          finishedAt: "2019-11-03T15:55:03Z"
+          reason: Completed
+          startedAt: "2019-11-03T15:54:57Z"
+    - containerID: cri-o://774c85fd01e6c9a8a3908278dfa6605459889ad8dbcbc31f0ed20409d9a8f482
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      imageID: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:9a4f1a98a9d306798123774dbc80633f8b1bcb7776d059e82c50e9d5ebd4f4d1
+      lastState: {}
+      name: manage-dockerfile
+      ready: true
+      restartCount: 0
+      state:
+        terminated:
+          containerID: cri-o://774c85fd01e6c9a8a3908278dfa6605459889ad8dbcbc31f0ed20409d9a8f482
+          exitCode: 0
+          finishedAt: "2019-11-03T15:55:04Z"
+          reason: Completed
+          startedAt: "2019-11-03T15:55:04Z"
+    phase: Failed
+    podIP: 10.128.24.53
+    qosClass: Burstable
+    startTime: "2019-11-03T15:54:49Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-11-03T15:54:48Z"
+    labels:
+      app: example-pipeline-app-in-oc
+    name: example-pipeline-app-in-oc
+    namespace: example-pipeline-app-in-oc
+    resourceVersion: "1510641"
+    selfLink: /api/v1/namespaces/example-pipeline-app-in-oc/services/example-pipeline-app-in-oc
+    uid: 4352f4db-fe52-11e9-8d40-0a7306d2d324
+  spec:
+    clusterIP: 172.30.243.180
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: example-pipeline-app-in-oc
+      deploymentconfig: example-pipeline-app-in-oc
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: "2019-11-03T15:54:47Z"
+    generation: 1
+    labels:
+      app: example-pipeline-app-in-oc
+    name: example-pipeline-app-in-oc
+    namespace: example-pipeline-app-in-oc
+    resourceVersion: "1510638"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/example-pipeline-app-in-oc/deploymentconfigs/example-pipeline-app-in-oc
+    uid: 43363120-fe52-11e9-aef9-0a580a800073
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: example-pipeline-app-in-oc
+      deploymentconfig: example-pipeline-app-in-oc
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: example-pipeline-app-in-oc
+          deploymentconfig: example-pipeline-app-in-oc
+      spec:
+        containers:
+        - image: example-pipeline-app-in-oc:latest
+          imagePullPolicy: Always
+          name: example-pipeline-app-in-oc
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 8443
+            protocol: TCP
+          - containerPort: 8778
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - example-pipeline-app-in-oc
+        from:
+          kind: ImageStreamTag
+          name: example-pipeline-app-in-oc:latest
+          namespace: example-pipeline-app-in-oc
+      type: ImageChange
+    - type: ConfigChange
+  status:
+    availableReplicas: 0
+    conditions:
+    - lastTransitionTime: "2019-11-03T15:54:48Z"
+      lastUpdateTime: "2019-11-03T15:54:48Z"
+      message: Deployment config does not have minimum availability.
+      status: "False"
+      type: Available
+    latestVersion: 0
+    observedGeneration: 1
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    creationTimestamp: "2019-11-03T15:54:48Z"
+    labels:
+      app: example-pipeline-app-in-oc
+    name: example-pipeline-app-in-oc
+    namespace: example-pipeline-app-in-oc
+    resourceVersion: "1510663"
+    selfLink: /apis/build.openshift.io/v1/namespaces/example-pipeline-app-in-oc/buildconfigs/example-pipeline-app-in-oc
+    uid: 434e932e-fe52-11e9-aef9-0a580a800073
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: example-pipeline-app-in-oc:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      git:
+        uri: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: java:11
+          namespace: openshift
+      type: Source
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - imageChange:
+        lastTriggeredImageID: image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89
+      type: ImageChange
+    - type: ConfigChange
+  status:
+    lastVersion: 1
+- apiVersion: build.openshift.io/v1
+  kind: Build
+  metadata:
+    annotations:
+      openshift.io/build-config.name: example-pipeline-app-in-oc
+      openshift.io/build.number: "1"
+      openshift.io/build.pod-name: example-pipeline-app-in-oc-1-build
+    creationTimestamp: "2019-11-03T15:54:49Z"
+    labels:
+      app: example-pipeline-app-in-oc
+      buildconfig: example-pipeline-app-in-oc
+      openshift.io/build-config.name: example-pipeline-app-in-oc
+      openshift.io/build.start-policy: Serial
+    name: example-pipeline-app-in-oc-1
+    namespace: example-pipeline-app-in-oc
+    ownerReferences:
+    - apiVersion: build.openshift.io/v1
+      controller: true
+      kind: BuildConfig
+      name: example-pipeline-app-in-oc
+      uid: 434e932e-fe52-11e9-aef9-0a580a800073
+    resourceVersion: "1511204"
+    selfLink: /apis/build.openshift.io/v1/namespaces/example-pipeline-app-in-oc/builds/example-pipeline-app-in-oc-1
+    uid: 43e21ef1-fe52-11e9-9c82-0a580a810072
+  spec:
+    nodeSelector: null
+    output:
+      pushSecret:
+        name: builder-dockercfg-xhp66
+      to:
+        kind: ImageStreamTag
+        name: example-pipeline-app-in-oc:latest
+    postCommit: {}
+    resources: {}
+    revision:
+      git:
+        author:
+          email: francesco.losciale@thoughtworks.com
+          name: Francesco Losciale
+        commit: 1561ac5a14b0f6f0f89b160aba3cf05b3e97bb35
+        committer:
+          email: francesco.losciale@thoughtworks.com
+          name: Francesco Losciale
+        message: Commit example Spring boot app
+      type: Git
+    serviceAccount: builder
+    source:
+      git:
+        uri: https://github.com/francesco-losciale/example-pipeline-app-in-oc
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: DockerImage
+          name: image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89
+        pullSecret:
+          name: builder-dockercfg-xhp66
+      type: Source
+    triggeredBy:
+    - imageChangeBuild:
+        fromRef:
+          kind: ImageStreamTag
+          name: java:11
+          namespace: openshift
+        imageID: image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:0978bb6d46f54d0d7a4cba24d12fdb48267171a1acbdc017d60f0987da117b89
+      message: Image change
+  status:
+    completionTimestamp: "2019-11-03T15:55:40Z"
+    config:
+      kind: BuildConfig
+      name: example-pipeline-app-in-oc
+      namespace: example-pipeline-app-in-oc
+    duration: 51000000000
+    logSnippet: |-
+      Copying blob sha256:17942523bc4bb2db6eb9f7519db38bbb70e47356d3f0ae0f15b967c0628234c6
+      Copying blob sha256:5515a4a345a77c65bee0d8320d1c020cbdb3053141e7579d7d01f0e0792ffeb8
+      Copying config sha256:adc2c894de47848ad002fe063bb07b3953028b0bf7a7ee00a3f79b7b5ba17fdd
+      Writing manifest to image destination
+      Storing signatures
+    message: The build pod was killed due to an out of memory condition.
+    output: {}
+    outputDockerImageReference: image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc:latest
+    phase: Failed
+    reason: OutOfMemoryKilled
+    stages:
+    - durationMilliseconds: 448
+      name: FetchInputs
+      startTime: "2019-11-03T15:55:02Z"
+      steps:
+      - durationMilliseconds: 448
+        name: FetchGitSource
+        startTime: "2019-11-03T15:55:02Z"
+    startTimestamp: "2019-11-03T15:54:49Z"
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    creationTimestamp: "2019-11-03T15:54:48Z"
+    generation: 1
+    labels:
+      app: example-pipeline-app-in-oc
+    name: example-pipeline-app-in-oc
+    namespace: example-pipeline-app-in-oc
+    resourceVersion: "1510637"
+    selfLink: /apis/image.openshift.io/v1/namespaces/example-pipeline-app-in-oc/imagestreams/example-pipeline-app-in-oc
+    uid: 43383bbf-fe52-11e9-aef9-0a580a800073
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/example-pipeline-app-in-oc/example-pipeline-app-in-oc
+    publicDockerImageRepository: default-route-openshift-image-registry.apps.us-east-2.starter.openshift-online.com/example-pipeline-app-in-oc/example-pipeline-app-in-oc
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: "2019-11-03T15:54:48Z"
+    labels:
+      app: example-pipeline-app-in-oc
+    name: example-pipeline-app-in-oc
+    namespace: example-pipeline-app-in-oc
+    resourceVersion: "1510646"
+    selfLink: /apis/route.openshift.io/v1/namespaces/example-pipeline-app-in-oc/routes/example-pipeline-app-in-oc
+    uid: 435a3286-fe52-11e9-9c82-0a580a810072
+  spec:
+    host: example-pipeline-app-in-oc-example-pipeline-app-in-oc.apps.us-east-2.starter.openshift-online.com
+    port:
+      targetPort: 8080-tcp
+    subdomain: ""
+    to:
+      kind: Service
+      name: example-pipeline-app-in-oc
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: "2019-11-03T15:54:48Z"
+        status: "True"
+        type: Admitted
+      host: example-pipeline-app-in-oc-example-pipeline-app-in-oc.apps.us-east-2.starter.openshift-online.com
+      routerCanonicalHostname: apps.us-east-2.starter.openshift-online.com
+      routerName: default
+      wildcardPolicy: None
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
