@@ -90,6 +90,10 @@ items:
     name: example-pipeline-app-in-oc
     namespace: example-pipeline-app-in-oc
   spec:
+    resources:
+      limits:
+        cpu: "100m"
+        memory: "1Gi"
     failedBuildsHistoryLimit: 5
     nodeSelector: null
     output:
@@ -97,7 +101,6 @@ items:
         kind: ImageStreamTag
         name: example-pipeline-app-in-oc:latest
     postCommit: {}
-    resources: {}
     runPolicy: Serial
     source:
       git:
