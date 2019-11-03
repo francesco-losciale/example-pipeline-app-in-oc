@@ -22,7 +22,7 @@ Output:
 
 `oc login ...`
 
-`oc new-project`
+`oc new-project project example-pipeline-app-in-oc`
 
 ... do all your setting on the web platform ...
 
@@ -31,3 +31,17 @@ Output:
 You have now obtained a template.yaml with all the API objects exported. You should 
 make it prettier, removing unnecessary details and adding parameters.
 
+
+
+----------
+TODO
+
+oc delete project example-pipeline-app-in-oc
+
+oc new-project example-pipeline-app-in-oc
+
+oc create -f oc/template.yaml
+
+oc get bc 
+
+oc start-build example-pipeline-app-in-oc
