@@ -1,18 +1,17 @@
 # Create a template from an OC project  
 
-The template contains all the API object configurations (build conf, 
-deployment conf, services, pod, etc).
+OpenShift allows you to use the interface from the web platform to set up a project so that 
+once you completed all your customisation (for example using OpenShift Developer Catalog),
+you can dump all the configuration in a yaml template file.
 
-After you created a project in OC, proceed creating a custom application 
-selecting an image from the OpenShift Developer Catalog.
+The template file would contain all the API objects' configuration needed to run a service 
+in OC (build conf, deployment conf, services, pod, etc).
 
-For this examplethe image "Red Hat OpenJDK 8" has been selected.
-
-Also, the Source-to-Image functionality in OpenShift enable you to
-receive your code on git to construct the final image of the application.
+Beside that, the Source-to-Image functionality in OpenShift enable you to create an image
+starting from your personal git repository with the codebase of your app.
 
 Input: 
-- Base image from the OpenShift Developer Catalog
+- Base image creted using the OpenShift Developer Catalog
 - Git repository URL of your app 
 
 Output:
