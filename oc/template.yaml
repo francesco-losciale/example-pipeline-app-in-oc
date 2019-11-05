@@ -107,13 +107,8 @@ items:
         uri: https://github.com/francesco-losciale/example-pipeline-app-in-oc
       type: Git
     strategy:
-      sourceStrategy:
-        from:
-          kind: ImageStreamTag
-          name: java:11
-          namespace: openshift
-      type: Source
-    successfulBuildsHistoryLimit: 5
+      dockerStrategy:
+        dockerfilePath: docker/Dockerfile
   status:
     lastVersion: 1
 - apiVersion: image.openshift.io/v1
