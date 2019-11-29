@@ -91,6 +91,6 @@ Go to the Jenkins configuration
 
 ### TODO
 1. fix - the pod running the java app crashes and restart continuously (CrashLoopBackOff)
-2. Git hooks
+2. Git hooks (https://docs.okd.io/latest/dev_guide/builds/triggering_builds.html)
 3. trigger another build at the postCommit
 2. improve README
