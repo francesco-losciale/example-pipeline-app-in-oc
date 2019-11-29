@@ -89,7 +89,7 @@ Go to the Jenkins configuration
 `<jenkins-external-url>/configure`
 
 
-###TODO
+### TODO
 1. fix - the pod running the java app crashes and restart continuously (CrashLoopBackOff)
 2. Git hooks
 3. trigger another build at the postCommit
