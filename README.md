@@ -35,12 +35,20 @@ make it prettier, removing unnecessary details and adding parameters.
 ----------
 TODO
 
-oc delete project example-pipeline-app-in-oc
+oc delete project example-pipeline-project ;
+oc new-project example-pipeline-project ;
+oc new-app jenkins-persistent; 
+oc new-app -f oc/template.yaml
 
-oc new-project example-pipeline-app-in-oc
 
-oc create -f oc/template.yaml
+oc create -f oc/template.yaml ;
+oc get bc ;
+oc start-build example-pipeline-app-in-oc;
 
-oc get bc 
 
-oc start-build example-pipeline-app-in-oc
+
+jenkins in oc: 
+    oc new-app jenkins-persistent; 
+    oc expose svc/jenkins;
+    
+    jenkins-external-url/configure <-- agents
