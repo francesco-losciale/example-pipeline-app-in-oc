@@ -35,10 +35,10 @@ make it prettier, removing unnecessary details and adding parameters.
 ----------
 TODO
 
-oc delete project example-pipeline-project ;
+oc delete project example-pipeline-project ; sleep 20;
 oc new-project example-pipeline-project ;
 oc new-app jenkins-persistent; 
-oc new-app -f oc/template.yaml;
+oc new-app -f template.yaml --build-env='MAVEN_ARGS=-e -Popenshift -Dcom.redhat.xpaas.repo.redhatga package';
 oc start-build example-java-app;
 
 

@@ -158,8 +158,8 @@ objects:
         to:
           kind: ImageStreamTag
           name: ${NAME}:latest
-      postCommit:
-        script: pwd
+#      postCommit:
+#        script: hook the build to another one here
       source:
         contextDir: ${CONTEXT_DIR}
         git:
