@@ -38,7 +38,8 @@ TODO
 oc delete project example-pipeline-project ;
 oc new-project example-pipeline-project ;
 oc new-app jenkins-persistent; 
-oc new-app -f oc/template.yaml
+oc new-app -f oc/template.yaml;
+oc start-build example-java-app;
 
 
 oc create -f oc/template.yaml ;

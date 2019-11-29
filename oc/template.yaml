@@ -159,7 +159,7 @@ objects:
           kind: ImageStreamTag
           name: ${NAME}:latest
       postCommit:
-        script: ./gradlew clean build
+        script: pwd
       source:
         contextDir: ${CONTEXT_DIR}
         git:
