@@ -69,7 +69,7 @@ oc new-app jenkins-persistent;
 
 oc new-app -f template.yaml --build-env='MAVEN_ARGS=-e -Popenshift -Dcom.redhat.xpaas.repo.redhatga package';
 
-oc set env dc/your-app-name GITHUB_WEBHOOK_SECRET=test1 
+oc set env dc/example-java-app GITHUB_WEBHOOK_SECRET=test1 
 
 oc start-build example-java-app;
 ```
