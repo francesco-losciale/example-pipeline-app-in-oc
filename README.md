@@ -74,6 +74,9 @@ oc new-app -f template.yaml \
 oc start-build example-java-app;
 ```
 
+-----
+oc describe bc/example-java-app # get the webhook url for github
+
 ### Other useful commands
 
 Import the object singularly from a file instead of an entire app template as above

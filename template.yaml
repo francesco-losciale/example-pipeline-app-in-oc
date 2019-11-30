@@ -47,11 +47,12 @@ parameters:
       of your repository.
     displayName: Context Directory
     name: CONTEXT_DIR
-#  - description: Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.
-#    displayName: GitHub Webhook Secret
-#    from: '[a-zA-Z0-9]{40}'
-#    generate: expression
-#    name: GITHUB_WEBHOOK_SECRET
+  - description: Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.
+    displayName: GitHub Webhook Secret
+    from: '[a-zA-Z0-9]{40}'
+    generate: expression
+    name: GITHUB_WEBHOOK_SECRET
+    value: test
 #  - description: A secret string used to configure the Generic webhook.
 #    displayName: Generic Webhook Secret
 #    from: '[a-zA-Z0-9]{40}'
@@ -114,9 +115,9 @@ objects:
         - github:
             secret: secret101
           type: GitHub
-        - generic:
-            secret: secret101
-          type: Generic
+#        - generic:
+#            secret: secret101
+#          type: Generic
   - apiVersion: v1
     kind: Service
     metadata:
@@ -173,10 +174,10 @@ objects:
             name: java:11
             namespace: ${NAMESPACE}
         type: Source
-#      triggers:
-#        - github:
-#            secret: ${GITHUB_WEBHOOK_SECRET}
-#          type: GitHub
+      triggers:
+        - github:
+            secret: ${GITHUB_WEBHOOK_SECRET}
+          type: GitHub
 #        - generic:
 #            secret: ${GENERIC_WEBHOOK_SECRET}
 #          type: Generic
