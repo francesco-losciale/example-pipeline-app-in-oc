@@ -55,7 +55,7 @@ Additional notes:
 
 * MAVEN_ARGS is overwritten because the S2I tool provided by OpenShift does skip the tests when building the app
 * To import Gradle projects you can use the jenkins-gradle-slave provided by the RedHat community (https://github.com/redhat-cop/containers-quickstarts). 
-Unfortunately OpenShift Online is limited and does not allow you to use Docker strategy.
+Unfortunately OpenShift Online is limited and does not allow you to use Docker strategy (https://stackoverflow.com/questions/46839811/allow-docker-strategy-in-openshift-3).
 `Error from server: admission webhook "validate.build.create" denied the request: Builds with docker strategy are prohibited on this cluster`
 * Take advantage of the OpenShift web platform when customising your first configuration. Then 
 export the yaml template using this command (refinements will be needed): 
