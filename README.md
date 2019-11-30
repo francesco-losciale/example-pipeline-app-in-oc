@@ -67,9 +67,7 @@ oc new-project example-pipeline-project ;
 
 oc new-app jenkins-persistent; 
 
-oc new-app -f template.yaml \
-        --build-env='MAVEN_ARGS=-e -Popenshift 
-                    -Dcom.redhat.xpaas.repo.redhatga package';
+oc new-app -f template.yaml --build-env='MAVEN_ARGS=-e -Popenshift -Dcom.redhat.xpaas.repo.redhatga package';
 
 oc start-build example-java-app;
 ```
