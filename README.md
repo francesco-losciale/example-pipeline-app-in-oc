@@ -72,9 +72,6 @@ oc new-app -f template.yaml --build-env='MAVEN_ARGS=-e -Popenshift -Dcom.redhat.
 oc start-build example-java-app;
 ```
 
------
-oc describe bc/example-java-app # get the webhook url for github
-
 ### Other useful commands
 
 Import the object singularly from a file instead of an entire app template as above
@@ -84,6 +81,10 @@ Import the object singularly from a file instead of an entire app template as ab
 Get the build configurations
 
 `oc get bc ;`
+    
+Get more description on a specific BuildConfig (ie. github webhook)
+
+`oc describe bc/example-java-app`    
     
 Go to the Jenkins configuration
 
