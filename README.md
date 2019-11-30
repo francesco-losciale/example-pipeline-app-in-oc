@@ -103,6 +103,10 @@ Go to the Jenkins configuration
 `<jenkins-external-url>/configure`
 
 
+### Starting the app locally
+
+`mvn spring-boot:run`
+
 ### TODO
 1. fix - the pod running the java app crashes and restart continuously (CrashLoopBackOff)
 2. Git hooks (https://docs.okd.io/latest/dev_guide/builds/triggering_builds.html)
