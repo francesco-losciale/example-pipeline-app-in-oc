@@ -53,11 +53,6 @@ parameters:
     generate: expression
     name: GITHUB_WEBHOOK_SECRET
     value: test1
-#  - description: A secret string used to configure the Generic webhook.
-#    displayName: Generic Webhook Secret
-#    from: '[a-zA-Z0-9]{40}'
-#    generate: expression
-#    name: GENERIC_WEBHOOK_SECRET
   - description: The OpenShift Namespace where the NodeJS and MongoDB ImageStreams reside.
     displayName: Namespace
     name: NAMESPACE
@@ -178,9 +173,6 @@ objects:
         - github:
             secret: ${GITHUB_WEBHOOK_SECRET}
           type: GitHub
-#        - generic:
-#            secret: ${GENERIC_WEBHOOK_SECRET}
-#          type: Generic
   - apiVersion: v1
     kind: DeploymentConfig
     metadata:
