@@ -6,7 +6,7 @@
 1. The pod fails for CrashLoopBackOff after being deployed. The Spring App does nothing to keep the container
 alive. Read this if you plan to build a real app: 
     https://serverfault.com/questions/924243/back-off-restarting-failed-container-error-syncing-pod-in-minikube
-2. livenessProbe and readinessProbe are commented out in the template. you could use Spring Actuator, 
+2. livenessProbe and readinessProbe are commented out in the template. after adding Spring Actuator, 
 but the deploy crashes for OOMKilled
 3. trigger another build at the postCommit
 4. improve README
