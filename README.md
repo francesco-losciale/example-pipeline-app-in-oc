@@ -69,10 +69,20 @@ oc new-app jenkins-persistent;
 
 oc new-app -f template.yaml --build-env='MAVEN_ARGS=-e -Popenshift -Dcom.redhat.xpaas.repo.redhatga package';
 
-oc set env dc/example-java-app GITHUB_WEBHOOK_SECRET=test1 
-
 oc start-build example-java-app;
 ```
+
+### Setting the GitHub webhook
+
+When creating the app from the template file, oc will print all the parameters
+generated for it. You can find there the GITHUB_WEBHOOK_SECRET value you need
+to use as secret in the URL in GitHub.
+Just a note: the secret we are talking about is the one to make the webhook URL
+difficult to find. 
+In Github there's an additional text field you can populate to write the
+X-Hub-Signature which could be used to make the mechanism more secure.
+OpenShift though is still ignoring this value.
+Please read this thread: https://github.com/openshift/origin/issues/14674
 
 ### Other useful commands
 
