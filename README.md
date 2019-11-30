@@ -69,6 +69,8 @@ oc new-app jenkins-persistent;
 
 oc new-app -f template.yaml --build-env='MAVEN_ARGS=-e -Popenshift -Dcom.redhat.xpaas.repo.redhatga package';
 
+oc set env dc/your-app-name GITHUB_WEBHOOK_SECRET=test1 
+
 oc start-build example-java-app;
 ```
 
@@ -94,5 +96,6 @@ Go to the Jenkins configuration
 ### TODO
 1. fix - the pod running the java app crashes and restart continuously (CrashLoopBackOff)
 2. Git hooks (https://docs.okd.io/latest/dev_guide/builds/triggering_builds.html)
+    https://github.com/openshift/origin/issues/14674 OpenShift is not very secure with hooks
 3. trigger another build at the postCommit
 2. improve README

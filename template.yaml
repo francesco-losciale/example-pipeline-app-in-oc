@@ -52,7 +52,6 @@ parameters:
     from: '[a-zA-Z0-9]{40}'
     generate: expression
     name: GITHUB_WEBHOOK_SECRET
-    value: test1
   - description: The OpenShift Namespace where the NodeJS and MongoDB ImageStreams reside.
     displayName: Namespace
     name: NAMESPACE
